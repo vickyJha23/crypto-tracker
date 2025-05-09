@@ -4,6 +4,7 @@ import { FaBars } from "react-icons/fa6";
 import { GiMoon } from "react-icons/gi";
 import { MdWbSunny } from "react-icons/md";
 import { toggleDarkMode } from '../redux/features/themeSlice';
+import { setSearchQuery } from "../redux/features/crytpoSlice"
 import { useAppDispatch, useAppSelector } from '../redux/hooks/customHook';
 
 
@@ -11,7 +12,7 @@ const Header = () => {
      const [dropdown, setDropdown] = useState(false);
      const dispatch = useAppDispatch();
      const isDarkMode = useAppSelector((state) => state.theme.isDarkMode)
-
+     
      const handleDropdown = () => {
           setDropdown(prevState => !prevState)
      }
@@ -47,7 +48,7 @@ const Header = () => {
                    Today's Cryptocurrency Prices
               </h1>
               <div className="flex flex-col md:flex-row gap-4 text-white mt-4">
-                 <input type="text"  className="w-full py-2 text-base px-4 rounded bg-[#f1f8f9] dark:bg-slate-700 dark:placeholder:text-gray-400 placeholder:text-black outline-none" placeholder="Search..."/> 
+                 <input onChange={(e) => dispatch(setSearchQuery(e.target.value))} type="text"  className="dark:text-white text-black w-full py-2 text-base px-4 rounded bg-[#f1f8f9] dark:bg-slate-700 dark:placeholder:text-gray-400 placeholder:text-black outline-none" placeholder="Search..."/> 
                  <button onClick={() => dispatch(toggleDarkMode())} className="text-black dark:text-white text-2xl cursor-pointer flex items-center justify-center dark:bg-slate-600 p-2 rounded-full bg-[#f1f8f9]">
                       {isDarkMode ? <MdWbSunny /> : <GiMoon />}
                  </button> 

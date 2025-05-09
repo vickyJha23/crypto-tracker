@@ -45,13 +45,14 @@ const cryptoSlice = createSlice({
  
  
 export const filteredCryptos = createSelector([selectCryptos, selectSearhQuery], (crytos, query) => {
+       console.log(query);
        if(!query) return crytos;
-       return crytos.filter((crypto) => crypto.name.includes(query) || crypto.symbol.includes(query))
+       return crytos.filter((crypto) => crypto.name.toLowerCase().includes(query) || crypto.symbol.toLowerCase().includes(query))
  }) 
 
 
 
 
 
-export const {addCryptoAssests, updateCrypto} = cryptoSlice.actions;
+export const {addCryptoAssests, updateCrypto, setSearchQuery} = cryptoSlice.actions;
 export default cryptoSlice.reducer

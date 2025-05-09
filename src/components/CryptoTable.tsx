@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { useAppSelector } from "../redux/hooks/customHook";
 import TableRow from "./TableRow";
 import type { CryptoAsset } from "../Types/crypto.type";
+import { filteredCryptos } from "../redux/features/crytpoSlice";
 
 type field = 'rank'| 'price' | 'percentChange1h' | 'percentChange24h' | 'percentChange7d'| 'marketCap' | 'volume24h' | 'circulatingSupply';
 
 const CryptoTable = () => {
-   let cryptos = useAppSelector((state) => state.crypto.cryptos);
+   let filteredCryptoes = useAppSelector(filteredCryptos);
    const [sortField, setSortField] = useState<field>('rank');
    const [sortingDirection, setSortingDirection] = useState <'asc' | 'dsc'>('asc');
    
@@ -19,7 +20,7 @@ const CryptoTable = () => {
    } 
 
   const handleSorting = (): CryptoAsset[] => {
-       cryptos = cryptos.sort((a, b) => {
+      filteredCryptoes = filteredCryptoes.sort((a, b) => {
            switch (sortField) {
                case 'rank':
                    return sortingDirection === 'asc' ? a.rank - b.rank : b.rank - a.rank;
@@ -40,9 +41,9 @@ const CryptoTable = () => {
                default:
                    return 0;
            }
-       });
-
-      return cryptos;
+         });
+         return filteredCryptoes;
+ 
    }
      
   useEffect(() => {
@@ -52,9 +53,9 @@ const CryptoTable = () => {
 
   return (
     <section className="h-full py-5 pb-8 px-5">
-         <div className="w-full max-w-sm md:max-w-[1170px] mx-auto h-auto overflow-hidden scrollbar-thin scrollbar-thumb-rounded scrollbar-track-rounded scrollbar-thumb-sky-700 scrollbar-track-[#374152] scrollbar- overflow-x-auto border-1 md:border-b-0 border-white rounded-[5px]">
-         <table className="w-full border-collapse shadow bg-slate-500 text-center overflow-x-auto table-auto">
-             <thead className="dark:bg-[#374152] dark:text-white capitalize tracking-wider">
+         <div className="w-full max-w-sm md:max-w-[1170px] mx-auto h-auto shadow-lg shadow-[#161616] overflow-hidden scrollbar-thin scrollbar-thumb-rounded scrollbar-track-rounded scrollbar-thumb-sky-700 scrollbar-track-[#374152] scrollbar- overflow-x-auto border-1 md:border-b-0 dark:border-white border-black rounded-[5px]">
+         <table className="w-full border-collapse shadow-lg shadow-[#161616] text-center overflow-x-auto table-auto">
+             <thead className="dark:bg-[#374152] bg-[#f1f5f9] dark:text-white capitalize tracking-wider">
                   <tr className="font-normal text-sm md:text-base">
                        <th onClick={()  => sortingValuesSetter('rank')} className="border-b-1 dark:border-white px-2 py-3">
                          # {sortingDirection === "asc" ? "": ""}
@@ -91,9 +92,9 @@ const CryptoTable = () => {
                       </th>
                   </tr>
              </thead>
-             <tbody className="dark:bg-[#1F2937]">
+             <tbody className="dark:bg-[#1F2937] bg-white">
                   {
-                    cryptos.map((crypto, index) => {
+                    filteredCryptoes.map((crypto, index) => {
                         return <TableRow key={index} crypto={crypto} />
                     })
                   }
