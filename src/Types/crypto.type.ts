@@ -24,6 +24,8 @@ export interface CryptoAsset {
 export interface ICryptoState {
     cryptos: CryptoAsset [] | [];
     searchQuery: string;
+    sortField:  'rank'| 'price' | 'percentChange1h' | 'percentChange24h' | 'percentChange7d'| 'marketCap' | 'volume24h' | 'circulatingSupply',
+    sortDirection: 'asc' | 'dsc'
   }
   export interface IThemeState {
        isDarkMode: boolean

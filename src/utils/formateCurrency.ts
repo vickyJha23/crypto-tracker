@@ -21,7 +21,7 @@ const formatCurrency = (value: number): string => {
             return `${(value / threshold).toFixed(2)}${suffix}`;
          }
      }
-     return value >= 1 ? `${value.toFixed(2)}`: `${value}`;
+     return `${value.toFixed(2)}`;
 }
 
 export default formatCurrency;

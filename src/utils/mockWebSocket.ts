@@ -1,25 +1,31 @@
 import { updateCrypto } from "../redux/features/crytpoSlice";
+import mockSampleData from "../assets/mockSampleData";
 import type { AppDispatch } from "../redux/stores/store";
 
 const mockWebSocket = (dispatch: AppDispatch) => {
-    setInterval(() => {
-         const rank =  Math.floor(Math.random() * 5) + 1;
-         const price = (Math.random() * 1E3) + 50000;  
-         const percentChange1h =  (Math.random () - 0.5).toFixed(2);
-         const percentChange24h = (Math.random () - 0.2).toFixed(2);     
-         const percentChange7d = (10 + Math.random () - 0.4)     
-        //  const marketCap =  (Math.random() * 1E9) + 100000000000 
-         const volume24h =  (Math.random() * 1E12) + 100000000000   
+  const interval =   setInterval(() => {
+         const index =  Math.floor(Math.random() * 5);
+         const data = mockSampleData[index];
+         const priceChange = (Math.random() * 0.04 - 0.02) * data.price; 
+         const price = data.price + priceChange;  
+         const percentChange1h =  data.percentChange1h + (Math.random () * 0.4 - 0.1);
+         const percentChange24h = data.percentChange24h + (Math.random () * 0.4 - 0.1);     
+         const percentChange7d = data.percentChange7d + (Math.random () * 0.03 - 0.01);      
+         const changeVolume24h = data.volume24h * (Math.random() * 0.04 - 0.01);
+         const volume24h  = data.volume24h + changeVolume24h;  
          dispatch(updateCrypto({
-            rank,
+            id:data.id,
             price,
-            percentChange1h:Number(percentChange1h),
-            percentChange24h:Number(percentChange24h),
-            percentChange7d:Number(percentChange7d),
-            // marketCap,
+            percentChange1h,
+            percentChange24h,
+            percentChange7d,
             volume24h
          }))
-    }, 1000 + Math.floor(Math.random() * 1000))
+    }, 1000 + Math.floor(Math.random() * 1000));
+
+    return () => {
+         clearInterval(interval)
+    }
 }
 
 

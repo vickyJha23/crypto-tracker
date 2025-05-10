@@ -10,9 +10,6 @@ import CryptoTable from "./components/CryptoTable";
 import mockWebSocket from "./utils/mockWebSocket";
 
 const App = () => {
-
-   
-
     const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
     const dispatch = useAppDispatch();
     useEffect(() => {
