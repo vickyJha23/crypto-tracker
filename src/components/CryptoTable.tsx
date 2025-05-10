@@ -57,7 +57,7 @@ const CryptoTable = () => {
                         </div>
                       </th>
                        <th className="border-b-1 dark:border-white px-2 py-3">
-                         <div onClick={(e) => sortingValuesSetter("percentChange7d")} className="flex gap-0.5 items-center cursor-pointer">
+                         <div onClick={() => sortingValuesSetter("percentChange7d")} className="flex gap-0.5 items-center cursor-pointer">
                           <span>7d%</span> {sortingField === "percentChange7d" && (sortingDirection === "asc" ? <MdKeyboardArrowUp size={18} />: <MdKeyboardArrowDown />)}
                           </div>
                       </th>
